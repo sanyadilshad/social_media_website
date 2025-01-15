@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps You Connected and Live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Optional custom styles */
+      .friend-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .friend-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex flex-col">
+      <!--NavBar-->
+      <nav class="w-full bg-white shadow-md">
+        <%- include('./partials/navbar', { user: user }) %>
+      </nav>
+    </div>
+
+    <div class="flex justify-between" style="min-height: calc(100vh - 250px)">
+      <!-- Left Sidebar -->
+      <div class="w-1/4 p-4 hidden md:block">
+        <div class="mb-5"></div>
+      </div>
+
+      <!-- Middle Content -->
+      <div class="w-full md:w-2/4 mx-4 p-4">
+        <div class="mb-5">
+          <!-- Search Bar -->
+          <div class="mb-4">
+            <input
+              type="text"
+              placeholder="Search Friends..."
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 transition duration-150"
+            />
+          </div>
+          <h1 class="text-2xl font-bold mb-4">
+            Friends found (<%= user.friends.length %>)
+          </h1>
+          <% if(user.friends.length) { %>
+          <ul class="space-y-4">
+            <% user.friends.forEach(friend => { %>
+            <li
+              class="friend-card p-4 bg-white border border-gray-200 rounded-lg shadow-md flex items-center justify-between mb-2"
+            >
+              <div class="flex items-center">
+                <img
+                  src="<%= friend.picture%>"
+                  alt="<%= friend.username %>"
+                  class="inline-block w-10 h-10 rounded-full mr-3 border-2 border-gray-300"
+                />
+                <span class="text-gray-800 font-medium"
+                  ><%= friend.username %></span
+                >
+              </div>
+              <a
+                href="/chats/<%=friend.username%>"
+                class="text-sky-500 hover:text-sky-700 transition duration-150"
+              >
+                <i class="fa-regular fa-comment text-xl"></i>
+              </a>
+            </li>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <div class="text-gray-600">No friends found!</div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <div class="w-1/4 p-4 hidden md:block">
+        <div class="mb-5"></div>
+      </div>
+    </div>
+
+    <!-- Last Content -->
+    <div class="w-full"><%- include('footer') %></div>
+  </body>
+</html>

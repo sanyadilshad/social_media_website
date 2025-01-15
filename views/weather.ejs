@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-5">
+    <div class="max-w-md mx-auto bg-white p-5 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold mb-4">Weather App</h1>
+
+      <!-- Default Weather Display for Delhi -->
+      <div id="defaultWeather" class="mt-4">
+        <h2 id="cityName" class="text-lg font-semibold">
+          7-Day Weather Forecast for Delhi
+        </h2>
+        <div id="forecast" class="mt-4"></div>
+      </div>
+
+      <!-- Dropdown for cities -->
+      <label for="citySelect" class="block mb-2">Select a city:</label>
+      <select id="citySelect" class="border border-gray-300 rounded p-2 mb-4">
+        <option value="">--Select a City--</option>
+        <option value="Delhi, IN">Delhi, IN</option>
+        <option value="New York, US">New York, US</option>
+        <option value="London, UK">London, UK</option>
+        <option value="Tokyo, JP">Tokyo, JP</option>
+        <option value="Sydney, AU">Sydney, AU</option>
+        <option value="Toronto, CA">Toronto, CA</option>
+        <option value="Mumbai, IN">Mumbai, IN</option>
+        <option value="Paris, FR">Paris, FR</option>
+        <option value="Berlin, DE">Berlin, DE</option>
+        <option value="Rome, IT">Rome, IT</option>
+        <option value="Moscow, RU">Moscow, RU</option>
+        <option value="Cairo, EG">Cairo, EG</option>
+        <option value="Rio de Janeiro, BR">Rio de Janeiro, BR</option>
+        <option value="Cape Town, ZA">Cape Town, ZA</option>
+        <option value="Bangkok, TH">Bangkok, TH</option>
+        <option value="Istanbul, TR">Istanbul, TR</option>
+        <option value="Seoul, KR">Seoul, KR</option>
+        <option value="Mexico City, MX">Mexico City, MX</option>
+        <option value="Buenos Aires, AR">Buenos Aires, AR</option>
+        <option value="Lima, PE">Lima, PE</option>
+        <option value="Sao Paulo, BR">Sao Paulo, BR</option>
+        <option value="Singapore, SG">Singapore, SG</option>
+        <option value="Dubai, AE">Dubai, AE</option>
+        <option value="Hong Kong, HK">Hong Kong, HK</option>
+        <option value="Kuala Lumpur, MY">Kuala Lumpur, MY</option>
+        <option value="Hanoi, VN">Hanoi, VN</option>
+        <option value="Lisbon, PT">Lisbon, PT</option>
+        <option value="Athens, GR">Athens, GR</option>
+        <option value="Oslo, NO">Oslo, NO</option>
+        <option value="Stockholm, SE">Stockholm, SE</option>
+        <option value="Copenhagen, DK">Copenhagen, DK</option>
+        <option value="Brussels, BE">Brussels, BE</option>
+        <option value="Zurich, CH">Zurich, CH</option>
+        <option value="Budapest, HU">Budapest, HU</option>
+        <option value="Vienna, AT">Vienna, AT</option>
+        <option value="Dublin, IE">Dublin, IE</option>
+        <option value="Nairobi, KE">Nairobi, KE</option>
+      </select>
+
+      <button id="getWeather" class="bg-blue-500 text-white py-2 px-4 rounded">
+        Get Weather
+      </button>
+    </div>
+
+    <script>
+      const apiKey = "9cf83045cfcc4c897236855ac3e915b0"; // Your OpenWeather API key
+
+      // Function to fetch weather data for a specific city
+      function fetchWeatherData(city) {
+        const geoUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+        // Get latitude and longitude
+        fetch(geoUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("City not found");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            const { lat, lon } = data.coord;
+            return fetch(
+              `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${apiKey}`
+            );
+          })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch forecast");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            displayWeather(data, city); // Call the displayWeather function with fetched data and city
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      }
+
+      // Function to display weather data
+      function displayWeather(data, city) {
+        const forecastContainer = document.getElementById("forecast");
+        forecastContainer.innerHTML = ""; // Clear previous data
+        document.getElementById(
+          "cityName"
+        ).innerText = `7-Day Weather Forecast for ${city}`;
+
+        // Adjust for 8 days (the API returns 7 days + today)
+        const daysToShow = data.daily.slice(0, 8); // Take the first 8 days including today
+        daysToShow.forEach((day, index) => {
+          const date = new Date(day.dt * 1000);
+          const dayName = date.toLocaleDateString("en-US", {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+          });
+          const temperature = `${Math.round(day.temp.max)} / ${Math.round(
+            day.temp.min
+          )}°C`;
+          const weatherDescription = day.weather[0].description;
+
+          const forecastCard = document.createElement("div");
+          forecastCard.className =
+            "bg-white p-4 rounded-lg shadow-md text-center mb-4";
+          forecastCard.innerHTML = `
+                    <h3>${dayName}</h3>
+                    <p class="text-lg">${temperature}</p>
+                    <p>${weatherDescription}</p>
+                `;
+          forecastContainer.appendChild(forecastCard);
+        });
+      }
+
+      // Fetch weather data for Delhi on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        // fetchWeatherData("Delhi, IN"); // Fetch weather data for Delhi
+      });
+
+      // Event listener for the button to fetch weather for selected city
+      document
+        .getElementById("getWeather")
+        .addEventListener("click", function () {
+          const citySelect = document.getElementById("citySelect");
+          const selectedCity = citySelect.value;
+
+          if (selectedCity) {
+            fetchWeatherData(selectedCity); // Fetch weather data for selected city
+          } else {
+            alert("Please select a city");
+          }
+        });
+    </script>
+  </body>
+</html>

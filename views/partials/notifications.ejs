@@ -1,0 +1,27 @@
+<div class="bg-white p-2 rounded-lg shadow-md">
+  <div class="p-4">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-semibold">Notifications</h2>
+      <button
+        class="text-blue-400"
+        onclick="handleMarkReadNotifications('all')"
+      >
+        Clear All
+      </button>
+    </div>
+    <div class="space-y-4" id="owner-notifications">
+      <!-- Notification item -->
+      <% if(!notifications.length){ %>
+      <div
+        class="flex items-center bg-white p-4 rounded-lg shadow notify-itm-empty"
+      >
+        <div class="ml-4">
+          <p class="text-gray-700">Notification not found!</p>
+        </div>
+      </div>
+
+      <% } %> <% notifications.forEach(function(notification){ %> <%-
+      include('./notification-item', { notification: notification}) %> <% }); %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+    <script>
+      // Timer for resend OTP functionality
+      let resendTimer = 120;
+      const timerInterval = setInterval(() => {
+        const timerElement = document.getElementById("resend-timer");
+        if (resendTimer > 0) {
+          resendTimer--;
+          timerElement.innerText = `${resendTimer} seconds remaining`;
+        } else {
+          clearInterval(timerInterval);
+          timerElement.innerHTML =
+            '<a href="/resend/login" class="text-blue-600 hover:underline">Resend OTP</a>';
+        }
+      }, 1000);
+    </script>
+  </head>
+  <body class="bg-gray-50">
+    <div
+      class="relative flex min-h-screen flex-col justify-center overflow-hidden py-6 sm:py-12"
+    >
+      <div
+        class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+      >
+        <!-- Logout Button -->
+        <div class="flex justify-end mb-4">
+          <a
+            href="/logout"
+            class="text-sm text-blue-700 hover:underline flex items-center"
+          >
+            Logout
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5 ml-1"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M3 5a2 2 0 012-2h6a2 2 0 012 2v1a1 1 0 11-2 0V5H5v10h6v-1a1 1 0 112 0v1a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm9.293 4.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L13.586 13H7a1 1 0 110-2h6.586l-1.293-1.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Friendzy Logo -->
+        <div class="flex justify-center mb-4">
+          <img src="/images/Friendzy (1).png" class="w-full h-24" />
+        </div>
+
+        <!-- Title -->
+        <h2 class="text-center text-xl font-semibold text-gray-800 mb-4">
+          Two-Factor Authentication
+        </h2>
+
+        <!-- Success Message -->
+        <p
+          class="text-green-600 text-center text-sm bg-green-100 border border-green-300 rounded-md px-3 py-2 mb-4"
+        >
+          An OTP has been sent to your registered email address
+          <span class="font-semibold"><%=encodedEmail%></span>.
+        </p>
+
+        <!-- OTP Form -->
+        <form action="/verify-token" method="post">
+          <label for="otp" class="block text-gray-700 font-medium mb-2">
+            Enter OTP <span class="text-red-600">*</span>
+          </label>
+          <input
+            id="otp"
+            name="otp"
+            type="text"
+            placeholder="Enter OTP"
+            required
+            class="block mt-3 w-full px-3 py-2 rounded-md bg-transparent border-2 border-zinc-700 outline-none"
+          />
+          <button
+            type="submit"
+            class="text-white block mt-3 w-full px-3 py-2 rounded-md bg-sky-950 hover:text-black hover:bg-sky-200 cursor-pointer font-semibold border-2 border-zinc-700 outline-none"
+          >
+            Submit
+          </button>
+        </form>
+
+        <!-- Resend OTP Section -->
+        <p id="resend-timer" class="mt-4 text-center text-gray-600 text-sm">
+          Resend OTP in
+          <span id="resend-timer-text">120 seconds remaining</span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

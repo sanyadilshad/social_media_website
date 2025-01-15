@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+  </head>
+  <body>
+    <div class="flex">
+      <!--NavBar-->
+      <nav class="w-full">
+        <%- include('./partials/navbar', { user: user }) %>
+      </nav>
+    </div>
+
+    <div class="flex justify-between">
+      <!-- Left Sidebar -->
+      <div class="w-1/4 p-4">
+        <div class="mb-5">
+          <%- include('./partials/notifications', {notifications: notifications
+          || []}) %>
+        </div>
+        <div class="mb-5"><%- include('explore') %></div>
+        <div class="mb-5"><%- include('dealsOfTheDay') %></div>
+      </div>
+
+      <!-- Middle Content -->
+      <div class="w-2/4 mx-4 p-4">
+        <div class="mb-5"><%- include('note') %></div>
+        <div>
+          <% posts.forEach(function(post){ %> <%- include('./partials/post', {
+          post: post }) %> <% }); %>
+        </div>
+      </div>
+
+      <!-- Right Sidebar -->
+      <!-- Right Sidebar -->
+      <div class="w-1/4 p-4">
+        <div class="mb-5"><%- include('birthday') %></div>
+        <div class="mb-5"><%- include('sideSuggestions') %></div>
+        <div class="mb-5">
+          <%- include('./partials/friends-suggestions.ejs', { suggestions, user
+          }) %>
+        </div>
+        <%- include('advertisement') %>
+      </div>
+    </div>
+
+    <!-- Last Content -->
+    <div class="w-full"><%- include('footer') %></div>
+  </body>
+</html>

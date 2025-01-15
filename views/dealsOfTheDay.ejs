@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deals of the Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom hover effect for the deal boxes */
+      .deal-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto mt-10">
+      <!-- Section Title -->
+      <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">
+        🔥 Deals of the Day
+      </h3>
+      <div class="flex flex-col space-y-6">
+        <!-- Deal 1 -->
+        <a href="https://example.com/deal1" class="block deal-card">
+          <div class="w-full h-36 overflow-hidden rounded-md relative">
+            <img
+              src="/images/electronics.png"
+              alt="Deal 1"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <span
+              class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full"
+              >50% OFF</span
+            >
+          </div>
+          <p class="text-base font-medium mt-3 text-gray-700 text-center">
+            Electronics Sale
+          </p>
+        </a>
+        <!-- Deal 2 -->
+        <a href="https://example.com/deal2" class="block deal-card">
+          <div class="w-full h-36 overflow-hidden rounded-md relative">
+            <img
+              src="/images/clothing.png"
+              alt="Deal 2"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <span
+              class="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full"
+              >BOGO Offer</span
+            >
+          </div>
+          <p class="text-base font-medium mt-3 text-gray-700 text-center">
+            Buy 1 Get 1 Free on Clothing
+          </p>
+        </a>
+        <!-- Deal 3 -->
+        <a href="https://example.com/deal3" class="block deal-card">
+          <div class="w-full h-36 overflow-hidden rounded-md relative">
+            <img
+              src="/images/accessories.png"
+              alt="Deal 3"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <span
+              class="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full"
+              >30% OFF</span
+            >
+          </div>
+          <p class="text-base font-medium mt-3 text-gray-700 text-center">
+            Discounts on Accessories
+          </p>
+        </a>
+      </div>
+
+      <!-- Button for View All Deals -->
+      <div class="text-center mt-6">
+        <a
+          href="#"
+          class="inline-block bg-indigo-500 text-white font-semibold py-2 px-4 rounded-full hover:bg-indigo-600 transition-colors duration-300"
+        >
+          View All Deals
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

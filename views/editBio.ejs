@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md p-4">
+      <%- include('./partials/navbar', { user: user }) %>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="flex justify-between mt-10">
+      <!-- Left Sidebar (optional content) -->
+      <aside class="w-1/4 p-6 hidden lg:block">
+        <!-- Left sidebar placeholder -->
+      </aside>
+
+      <!-- Main Content -->
+      <main class="w-full lg:w-2/4 mx-4 p-6 bg-white shadow-lg rounded-lg">
+        <div class="mb-8">
+          <!-- Page Title -->
+          <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Your Bio</h1>
+
+          <!-- Form -->
+          <form action="/update-bio" method="post" class="space-y-4">
+            <!-- Bio Textarea -->
+            <textarea
+              name="bio"
+              rows="5"
+              class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Tell us something about yourself..."
+            >
+<%= user.bio || '' %></textarea
+            >
+
+            <!-- Save Button -->
+            <div class="text-right">
+              <button
+                type="submit"
+                class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105"
+              >
+                Save Bio
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <!-- Right Sidebar (optional content) -->
+      <aside class="w-1/4 p-6 hidden lg:block">
+        <!-- Right sidebar placeholder -->
+      </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16"><%- include('footer') %></footer>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+  </head>
+  <body>
+    <div class="flex">
+      <!--NavBar-->
+      <nav class="w-full">
+        <%- include('./partials/navbar', { user: user }) %>
+      </nav>
+    </div>
+    <div class="flex justify-between mx-4 p-4">
+      <div class="w-1/4 p-4 mx-4">
+        <div class="relative flex overflow-hidden py-6 sm:py-8">
+          <div
+            class="relative px-6 pt-6 pb-6 shadow-xl ring-1 ring-gray-900/5 sm:max-w-sm sm:rounded-lg sm:px-10 ml-4"
+          >
+            <div class="max-w-md mx-auto">
+              <h1 class="text-2xl font-bold">
+                About <%= profileUser.username %>
+              </h1>
+              <div class="flex items-center mb-4 flex-col">
+                <img
+                  src="<%= profileUser.picture %>"
+                  alt="Profile Picture"
+                  class="w-32 h-32 rounded-full mr-4 mt-4"
+                />
+                <div>
+                  <h2 class="text-xl font-bold mt-2">
+                    <%= profileUser.username %>
+                  </h2>
+                  <p class="text-gray-600">
+                    Friends Count: <%= profileUser.friends.length %>
+                  </p>
+                  <p class="text-gray-600 mb-5">
+                    Bio: <%= profileUser.bio || 'No bio available' %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%- include('./partials/your-friends', { friends: profileUser.friends,
+        showFriendMenu:user.id == profileUser.id?true:false}) %>
+      </div>
+
+      <div class="w-2/4 p-4 mx-4">
+        <div class="bg-gray-100 mb-5">
+          <% if (posts.length > 0) { %>
+          <div>
+            <% posts.forEach(function(post){ %> <%- include('./partials/post', {
+            post: post}) %> <% }); %>
+          </div>
+          <% } else { %>
+          <div class="bg-white p-2 rounded-lg shadow-md mb-4">
+            <div class="text-gray-600 p-4">No posts available</div>
+          </div>
+          <% } %>
+        </div>
+      </div>
+      <div class="w-1/4 p-4">
+        <div class="mb-5"></div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript for toggling the settings menu
+      document
+        .getElementById("settingsMenuButton")
+        .addEventListener("click", () => {
+          const menu = document.getElementById("settingsMenu");
+          menu.classList.toggle("hidden");
+        });
+
+      // Close the menu if clicking outside
+      document.addEventListener("click", (event) => {
+        const isClickInside = document
+          .getElementById("settingsMenu")
+          .contains(event.target);
+        const isButtonClick = document
+          .getElementById("settingsMenuButton")
+          .contains(event.target);
+        if (!isClickInside && !isButtonClick) {
+          document.getElementById("settingsMenu").classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

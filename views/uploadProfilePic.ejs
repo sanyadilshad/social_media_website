@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Set Profile Picture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md">
+      <%- include('./partials/navbar', { user: user }) %>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div
+      class="flex justify-between mt-8"
+      style="min-height: calc(100vh - 250px)"
+    >
+      <!-- Left Sidebar (optional) -->
+      <aside class="w-1/4 p-4 hidden lg:block">
+        <!-- Left sidebar placeholder -->
+      </aside>
+
+      <!-- Middle Content -->
+      <main
+        class="flex flex-col justify-center items-center w-full lg:w-2/4 p-6 bg-white shadow-lg rounded-lg mx-4"
+      >
+        <h1 class="text-3xl font-bold mb-6 text-center">Set Profile Picture</h1>
+
+        <!-- Display Default Profile Picture -->
+        <img
+          src="/images/user.png"
+          alt="Default Profile Picture"
+          class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-blue-500 shadow-md"
+        />
+
+        <!-- Form to Upload Profile Picture -->
+        <form
+          action="/uploadProfilePicture"
+          method="POST"
+          enctype="multipart/form-data"
+          class="text-center"
+        >
+          <label
+            for="profilePicture"
+            class="block mb-2 text-lg font-medium text-gray-700"
+            >Choose Picture</label
+          >
+          <input
+            type="file"
+            id="profilePicture"
+            name="profilePicture"
+            class="block mx-auto mb-4 border border-gray-300 rounded-lg p-2"
+            accept="image/*"
+          />
+          <button
+            type="submit"
+            class="bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-blue-700 transition-transform transform hover:scale-105"
+          >
+            Update Picture
+          </button>
+        </form>
+
+        <!-- Skip Link -->
+        <a
+          href="/me"
+          class="block mt-4 text-gray-600 hover:text-blue-600 transition"
+          >Skip</a
+        >
+      </main>
+
+      <!-- Right Sidebar (optional) -->
+      <aside class="w-1/4 p-4 hidden lg:block">
+        <!-- Right sidebar placeholder -->
+      </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16"><%- include('footer') %></footer>
+  </body>
+</html>

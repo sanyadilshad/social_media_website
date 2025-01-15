@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advertisements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="bg-white p-4 rounded-lg shadow-md max-w-sm mx-auto">
+      <h3 class="text-lg font-semibold mb-4">Advertisements</h3>
+      <div id="ads-container" class="flex flex-col space-y-4">
+        <!-- Ads will be dynamically added here -->
+      </div>
+    </div>
+
+    <script>
+      // Static array of advertisements for various brands
+      const ads = [
+        {
+          title: "Amazon Best Deals!",
+          description:
+            "Discover amazing deals on electronics, books, and more at Amazon!",
+          link: "https://www.amazon.in/b?node=16225031031",
+          image: "/images/AmazonBestDeals.png",
+        },
+        {
+          title: "Myntra Fashion Sale!",
+          description:
+            "Shop the latest fashion trends with up to 70% off on Myntra!",
+          link: "https://www.myntra.com/sale",
+          image: "/images/myntra-sale.png",
+        },
+        {
+          title: "Hamleys India!",
+          description: "Explore the magical world of toys at Hamleys India.",
+          link: "https://www.hamleys.in/?srsltid=AfmBOoraEuBspvHRJ7-tsirMjNiOtMU-naYgtj4Gp-uRqMLNdGHMRs-3",
+          image: "/images/hamleyss.png",
+        },
+        {
+          title: "Cartier Luxury!",
+          description: "Discover the exquisite craftsmanship of Cartier.",
+          link: "https://www.cartier.com/en-us/home",
+          image: "/images/cartier.png",
+        },
+        {
+          title: "Pandora Jewelry!",
+          description:
+            "Find the perfect gift with Pandora's unique jewelry pieces.",
+          link: "https://us.pandora.net/?srsltid=AfmBOoqvlyfS0BBBAbu3dvybOeLKrx8wCNUGVQ6kAfvepTQ4e1gO-qtE",
+          image: "/images/Pandora-logo.png",
+        },
+        {
+          title: "Disney+ Hotstar!",
+          description:
+            "Watch your favorite shows and movies on Disney+ Hotstar.",
+          link: "https://www.hotstar.com/in",
+          image: "/images/Disney+Hotstar.jpg",
+        },
+        {
+          title: "Amazon Prime Video!",
+          description:
+            "Enjoy exclusive movies and TV shows with Amazon Prime Video.",
+          link: "https://www.primevideo.com/offers/nonprimehomepage/ref=dv_web_force_root",
+          image: "/images/amazonPrime.png",
+        },
+        {
+          title: "Guess Fashion!",
+          description: "Explore the latest collections from Guess.",
+          link: "https://www.guess.com/us/en/home/",
+          image: "/images/Guess.png",
+        },
+        {
+          title: "Barnes & Noble Books!",
+          description: "Find your next great read at Barnes & Noble.",
+          link: "https://www.barnesandnoble.com/",
+          image: "/images/BN.png",
+        },
+
+        // {
+        //   title: "Amazon Prime Exclusive!",
+        //   description:
+        //     "Get exclusive access to deals and free shipping with Amazon Prime.",
+        //   link: "https://www.amazon.in/amazonprime",
+        //   image: "https://via.placeholder.com/150?text=Amazon+Prime",
+        // },
+        // {
+        //   title: "Myntra New Arrivals!",
+        //   description:
+        //     "Explore the new collection of trendy outfits on Myntra!",
+        //   link: "https://www.myntra.com/new-arrivals",
+        //   image: "https://via.placeholder.com/150?text=Myntra+New+Arrivals",
+        // },
+      ];
+
+      // Function to render ads
+      function renderAds() {
+        const container = document.getElementById("ads-container");
+        ads.forEach((ad) => {
+          const adElement = document.createElement("a");
+          adElement.href = ad.link;
+          adElement.className =
+            "block border rounded-md p-2 hover:bg-gray-100 transition";
+
+          adElement.innerHTML = `
+            <div class="w-full h-32 overflow-hidden rounded-md">
+              <img src="${ad.image}" alt="${ad.title}" class="w-full h-full object-cover" />
+            </div>
+            <h4 class="font-semibold mt-2">${ad.title}</h4>
+            <p class="text-sm text-gray-600">${ad.description}</p>
+          `;
+
+          container.appendChild(adElement);
+        });
+      }
+
+      // Render the ads when the page loads
+      renderAds();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Loading spinner styles */
+      #loading {
+        display: none;
+        text-align: center;
+        padding: 20px;
+        font-size: 16px;
+        color: #333;
+        position: fixed; /* Use fixed positioning to center it */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(
+          -50%,
+          -50%
+        ); /* Translate back by half its width and height */
+        z-index: 1000; /* Ensure it appears above other elements */
+      }
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid transparent;
+        border-radius: 50%;
+        border-top-color: #3498db; /* Customize the spinner color */
+        animation: spin 1s ease infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <div class="flex">
+      <!-- NavBar -->
+      <nav class="w-full">
+        <%- include('./partials/navbar', { user: user }) %>
+      </nav>
+    </div>
+
+    <div class="flex justify-between p-4">
+      <!-- Middle Content -->
+      <div
+        id="image-grid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 w-full h-auto"
+      >
+        <!-- Images will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <div id="loading" class="flex flex-col items-center justify-center">
+      <div class="loading-spinner"></div>
+      <span class="mt-2">Loading more images...</span>
+    </div>
+
+    <script>
+      let currentPage = 1;
+      const limit = 10;
+      let isLoading = false;
+
+      async function fetchImages(page) {
+        try {
+          const response = await fetch(
+            `/api/explore-images?page=${page}&limit=${limit}`
+          );
+          if (!response.ok) throw new Error("Network response was not ok.");
+          const images = await response.json();
+          const gridContainer = document.getElementById("image-grid");
+
+          images.forEach((image) => {
+            const imgElement = document.createElement("img");
+            imgElement.src = image.urls.small;
+            imgElement.alt = image.alt_description || "Image"; // Fallback for alt description
+            imgElement.className =
+              "w-full h-full object-cover rounded-lg shadow-md transition-transform duration-200 hover:scale-105";
+            gridContainer.appendChild(imgElement);
+          });
+
+          if (images.length < limit) {
+            // No more images to load
+            window.removeEventListener("scroll", handleScroll);
+            document.getElementById("loading").textContent = "No more images";
+          }
+        } catch (error) {
+          console.error("Error fetching images:", error);
+          document.getElementById("loading").textContent =
+            "Error loading images";
+        } finally {
+          isLoading = false;
+          document.getElementById("loading").style.display = "none";
+        }
+      }
+
+      function handleScroll() {
+        const scrollTop = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollTop + windowHeight >= documentHeight - 100) {
+          // Trigger near bottom
+          if (!isLoading) {
+            isLoading = true;
+            document.getElementById("loading").style.display = "flex"; // Show loading spinner
+            currentPage++;
+            fetchImages(currentPage);
+          }
+        }
+      }
+
+      window.addEventListener("scroll", handleScroll);
+
+      // Initial fetch
+      fetchImages(currentPage);
+    </script>
+
+    <!-- Last Content -->
+    <div class="w-full"><%- include('footer') %></div>
+  </body>
+</html>

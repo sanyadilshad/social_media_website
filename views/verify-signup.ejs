@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
+  </head>
+  <body class="bg-gray-50">
+    <div
+      class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-sky-100 py-6 sm:py-12"
+    >
+      <div
+        class="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10"
+      >
+        <div class="mx-auto max-w-md">
+          <% if(err) {%>
+          <div class="text-red-600"><%= err.message%></div>
+          <%} else {%>
+          <img src="/images/Friendzy (1).png" class="w-full h-24" />
+          <h1 class="text-xl font-bold text-center mb-4">Verify Your Email</h1>
+          <form action="/verify-signup" method="post">
+            <input type="hidden" name="token" value="<%=token%>" />
+            <input
+              class="block mt-3 w-full px-3 py-2 rounded-md bg-transparent border-2 border-zinc-700 outline-none"
+              type="text"
+              placeholder="Enter OTP"
+              name="otp"
+              required
+            />
+            <input
+              class="text-white block mt-3 w-full px-3 py-2 rounded-md bg-sky-950 hover:text-black hover:bg-sky-200 cursor-pointer font-semibold border-2 border-zinc-700 outline-none"
+              type="submit"
+              value="Verify OTP"
+            />
+          </form>
+          <%}%>
+        </div>
+        <p class="mt-4 text-center">
+          Didn't receive an OTP?
+          <a class="text-blue-700" href="/resend/signup/<%=token%>">Resend</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

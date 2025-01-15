@@ -1,0 +1,111 @@
+<div class="bg-gray-100 mb-5">
+  <div
+    class="bg-white p-2 rounded-lg shadow-md"
+    style="background-color: <%= post.bgColor? post.bgColor :'#fff' %>"
+  >
+    <!-- Post Header -->
+    <div class="flex items-center p-4">
+      <img
+        src="<%= post.author.picture %>"
+        alt="User Avatar"
+        class="w-10 h-10 rounded-full"
+      />
+      <div class="ml-4">
+        <p class="text-gray-800 font-semibold"><%= post.author.username %></p>
+      </div>
+    </div>
+
+    <!-- Post Content -->
+    <div class="p-4">
+      <div><%= post.content %></div>
+      <% if (post.imagePath) { %>
+      <img
+        src="<%= post.imagePath %>"
+        alt="Post Image"
+        class="mt-2 w-full h-auto rounded-lg"
+      />
+      <% } %> <% if (post.videoPath) { %>
+      <video controls class="mt-2 w-full h-auto rounded-lg">
+        <source src="<%= post.videoPath %>" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <% } %>
+    </div>
+    <!-- Post Actions -->
+    <div class="flex justify-between p-4">
+      <div class="flex gap-4">
+        <% if(post.author.id == user.id){ %>
+        <div class="text-gray-500 post-lu-<%=post._id%>">
+          <i
+            class="<%= (post.likes || []).length? 'fa-solid':'fa-regular' %> fa-heart"
+          ></i>
+          Likes(<span class="like-count"><%= (post.likes || []).length %></span
+          >)
+        </div>
+        <% } else { %>
+        <button
+          type="button"
+          class="text-gray-500 post-lu-<%=post._id%>"
+          onclick="handleLikeSubmit(this, '<%=post.id%>','<%=user.id%>')"
+        >
+          <i
+            class="<%= (post.likes || []).length? 'fa-solid':'fa-regular' %> fa-heart <%= (post.likes && post.likes.includes(user.id))? 'text-red-500':''%>"
+          ></i>
+          Likes(<span class="like-count"><%= (post.likes || []).length %></span
+          >)
+        </button>
+        <% } %>
+        <a
+          href="#comments"
+          class="text-gray-500 hover:underline"
+          onclick="toggleComments(event, '<%=post.id%>')"
+        >
+          <i
+            class="fa-regular fa-comment <%= ( post.comments || []).length?'text-red-700':'' %>"
+          ></i>
+          Comments (<span class="cmts-count-<%=post.id%>"
+            ><%= ( post.comments || []).length%></span
+          >)
+        </a>
+      </div>
+      <span class="text-gray-400 text-xs"
+        ><%= post.updatedAt.toDateString() %></span
+      >
+    </div>
+
+    <!-- Display Comments -->
+    <div class="comments mt-4 hidden post-cmts-<%=post._id%>">
+      <% if (post.comments && post.comments.length > 0) { %> <%
+      post.comments.forEach(comment => { %> <%- include('./post-comment-item', {
+      comment: comment, user:user}) %> <% }); %> <% } else { %>
+      <div class="comment mb-3 p-2 bg-gray-50 rounded-lg cmts-empty">
+        <p>No comments yet.</p>
+      </div>
+      <% } %>
+    </div>
+
+    <!-- Add Comment Form -->
+    <div class="mt-4">
+      <form
+        action="/posts/<%= post._id %>/comments"
+        method="POST"
+        onsubmit="event.preventDefault(); return handleCommentSubmit(this);"
+      >
+        <textarea
+          name="comments"
+          rows="3"
+          class="w-full p-2 border border-gray-300 rounded-lg"
+          placeholder="Add a comment..."
+          required
+          style="background-color: <%= post.bgColor? post.bgColor :'#fff' %>"
+        ></textarea>
+        <button
+          type="submit"
+          class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg"
+        >
+          Post Comment
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friendzy - Keeps you connected and live</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50">
+    <!-- NavBar -->
+    <nav class="bg-sky-950 text-white p-4">
+      <h1 class="text-2xl font-bold">Friendzy</h1>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="flex justify-between" style="min-height: calc(100vh - 170px)">
+      <!-- Left Section: Friends List -->
+      <div class="w-1/4 p-4 bg-gray-200 border-r border-gray-300">
+        <!-- Search Bar -->
+        <div class="mb-4">
+          <input
+            type="text"
+            placeholder="Search Friends..."
+            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
+          />
+        </div>
+        <h1 class="text-2xl font-bold mb-4">Friends found (5)</h1>
+        <ul class="space-y-4">
+          <li
+            class="p-4 bg-white border border-gray-200 rounded-lg shadow-md flex items-center justify-between hover:bg-gray-100 transition"
+          >
+            <div class="flex items-center">
+              <img
+                src="https://via.placeholder.com/50"
+                alt="Friend name"
+                class="inline-block w-8 h-8 rounded-full mr-3"
+              />
+              <span class="font-semibold">Paul Molive</span>
+            </div>
+            <a href="#" class="text-sky-500 hover:text-sky-700">
+              <i class="fa-regular fa-comment fa-lg"></i>
+            </a>
+          </li>
+          <!-- Add more static friends here -->
+        </ul>
+      </div>
+
+      <!-- Middle Section: Chat Room -->
+      <div class="w-2/4 flex flex-col justify-between">
+        <div class="container mx-auto p-4 flex-grow">
+          <div
+            class="bg-white shadow-lg rounded-lg overflow-hidden h-full flex flex-col"
+          >
+            <!-- Chat Header -->
+            <div class="p-4 border-b bg-sky-950 flex justify-between">
+              <div class="text-white flex items-center">
+                <img
+                  src="https://via.placeholder.com/50"
+                  alt="Petey Cruiser"
+                  class="w-10 h-10 rounded-full mr-4"
+                />
+                <h2 class="text-xl font-semibold">Petey Cruiser</h2>
+              </div>
+              <button
+                class="bg-transparent text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
+              >
+                <i class="fa-solid fa-ellipsis-vertical"></i>
+              </button>
+            </div>
+
+            <!-- Chat Messages -->
+            <div
+              class="p-4 flex-grow overflow-y-auto bg-gray-50"
+              id="session-messages"
+            >
+              <div class="mb-4 text-left">
+                <div
+                  class="inline-block max-w-[75%] rounded-lg shadow p-3 bg-gray-200 text-gray-800"
+                >
+                  <p>
+                    Oh yes, the writing was beautiful! That just made me more
+                    disappointed in the character.
+                  </p>
+                  <small class="text-xs text-gray-500">15:13</small>
+                </div>
+              </div>
+              <div class="mb-4 text-right">
+                <div
+                  class="inline-block max-w-[75%] rounded-lg shadow p-3 bg-sky-500 text-white"
+                >
+                  <p>
+                    Well, this is just my opinion, but maybe the character would
+                    have been easier to understand...
+                  </p>
+                  <small class="text-xs text-gray-200">15:13</small>
+                </div>
+              </div>
+              <!-- More static chat messages can be added here -->
+            </div>
+
+            <!-- Message Input -->
+            <div class="flex items-center p-4 bg-white border-t">
+              <input
+                type="text"
+                name="chat-message"
+                placeholder="Type your message..."
+                class="flex-grow p-2 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 mr-2"
+                required
+                id="id-chat-message"
+              />
+              <button
+                type="button"
+                class="bg-sky-950 text-white py-2 px-4 rounded-md flex items-center hover:bg-sky-700 transition"
+              >
+                <i class="fas fa-paper-plane mr-2"></i> Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Section: User Profile, Bio & Media Shared -->
+      <div class="w-1/4 p-4 bg-gray-200 border-l border-gray-300">
+        <!-- Combined User Profile, Bio and Media Card -->
+        <div class="bg-white p-4 rounded-lg shadow-md">
+          <!-- User Profile and Bio -->
+          <div class="text-center mb-4">
+            <h3 class="text-lg font-semibold mb-2">Petey Cruiser</h3>
+            <img
+              src="https://via.placeholder.com/50"
+              alt="Petey Cruiser"
+              class="w-16 h-16 rounded-full mx-auto mb-3"
+            />
+            <p class="text-gray-600">
+              Hi, I'm Petey! I love to chat about tech and life. Let’s connect
+              and share our experiences.
+            </p>
+          </div>
+
+          <!-- Media Shared Section -->
+          <h3 class="text-lg font-semibold mb-4">Media Shared</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center">
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Shared Image"
+                class="w-16 h-16 rounded-lg mr-4"
+              />
+            </li>
+            <li class="flex items-center">
+              <img
+                src="https://via.placeholder.com/100"
+                alt="Shared Video"
+                class="w-16 h-16 rounded-lg mr-4"
+              />
+            </li>
+            <!-- Add more media items here -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-sky-950 text-white p-4">
+      <p class="text-center">&copy; 2024 Friendzy. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

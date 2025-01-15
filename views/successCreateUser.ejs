@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gradient-to-br from-sky-200 to-blue-300 min-h-screen flex items-center justify-center"
+  >
+    <div
+      class="relative bg-white p-8 shadow-xl ring-1 ring-gray-300 sm:max-w-lg sm:rounded-xl"
+    >
+      <!-- Logo -->
+      <div class="text-center mb-6">
+        <img
+          src="/images/Friendzy (1).png"
+          alt="Friendzy Logo"
+          class="w-24 h-24 mx-auto"
+        />
+      </div>
+
+      <!-- Success Message -->
+      <h1 class="text-3xl font-bold text-gray-800 text-center mb-4">
+        Account Created!
+      </h1>
+      <p class="text-lg text-gray-600 text-center mb-2">
+        Welcome, <strong class="text-gray-800"><%= user.username %></strong>!
+        Your account has been successfully created.
+      </p>
+      <p class="text-lg text-gray-600 text-center">login to get started.</p>
+
+      <!-- Call to Action Button -->
+      <div class="text-center mt-8">
+        <a
+          href="/login"
+          class="inline-block bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+        >
+          Login Now
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

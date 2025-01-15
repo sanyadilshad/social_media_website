@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom hover effect */
+      .course-card:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10">
+      <!-- Section Title -->
+      <h3
+        class="text-2xl font-extrabold mb-6 text-center uppercase tracking-wide"
+      >
+        🔥 Best Deals on Top Courses! <br />
+        Learn Today, Succeed Tomorrow 🎯
+      </h3>
+      <div class="flex flex-col space-y-6">
+        <!-- Course 1 -->
+        <a href="https://codecademy.com" class="block course-card">
+          <div
+            class="w-full aspect-w-16 aspect-h-9 overflow-hidden rounded-lg relative bg-gray-100"
+          >
+            <img
+              src="/images/codeacademy.png"
+              alt="CodeAcademy"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <span
+              class="absolute top-2 left-2 bg-indigo-500 text-white text-xs px-3 py-1 rounded-full"
+            >
+              Popular
+            </span>
+          </div>
+          <p class="text-lg font-medium mt-3 text-gray-700 text-center">
+            Learn to Code with Codecademy
+          </p>
+        </a>
+
+        <!-- Course 2 -->
+        <a href="https://coursera.org" class="block course-card">
+          <div
+            class="w-full aspect-w-16 aspect-h-9 overflow-hidden rounded-lg relative bg-gray-100"
+          >
+            <img
+              src="/images/coursera.png"
+              alt="Coursera"
+              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+            <span
+              class="absolute top-2 left-2 bg-green-500 text-white text-xs px-3 py-1 rounded-full"
+            >
+              Trending
+            </span>
+          </div>
+          <p class="text-lg font-medium mt-3 text-gray-700 text-center">
+            Advance Your Career with Coursera
+          </p>
+        </a>
+      </div>
+
+      <!-- Call to Action Button -->
+      <div class="text-center mt-8">
+        <a
+          href="#"
+          class="inline-block bg-blue-600 text-white font-semibold py-3 px-6 rounded-full hover:bg-blue-700 transition duration-300"
+        >
+          Explore More Courses
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
